@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -e
+set -x
+
+BASEDIR="` dirname $( dirname $( realpath $0 ) ) `"
+DB_PATH="$HOME/.local/share/qchecklists.sqlite"
+
+(
+    set -e
+    set -x
+    
+    cd $BASEDIR
+    
+    ENV_DIR="$BASEDIR/env"
+    if [ ! -d "$ENV_DIR" ]; then
+        python3 -m venv "$ENV_DIR"
+    fi
+
+    ENV_BIN="$ENV_DIR/bin"
+    PYTHON="$ENV_BIN/python3"
+    PIP="$ENV_BIN/pip3"
+    
+    source "$ENV_BIN/activate"
+    
+    $PYTHON $PIP install SQLAlchemy yoyo-migrations robotframework pyside6-essentials
+    $PYTHON $BASEDIR/install.py
+)
+
+DESKTOP_DIR="$HOME/.local/share/applications"
+ICON_DIR="$HOME/.local/share/icons/hicolor"
+BIN_DIR="$HOME/.local/bin"
+
+mkdir -p "$BIN_DIR"
+mkdir -p "$DESKTOP_DIR"
+mkdir -p "$ICON_DIR/128x128/apps"
+mkdir -p "$ICON_DIR/512x512/apps"
+
+ln -sf "$BASEDIR/bin/qchecklists.sh" "$BIN_DIR/qchecklists"
+ln -sf "$BASEDIR/resources/qchecklists.desktop" "$DESKTOP_DIR/qchecklists.desktop"
+ln -sf "$BASEDIR/resources/qchecklists-logo-v1.128.png" "$ICON_DIR/128x128/apps/qchecklists.png"
+ln -sf "$BASEDIR/resources/qchecklists-logo-v1.512.png" "$ICON_DIR/512x512/apps/qchecklists.png"
+
+chmod +x "$BIN_DIR/qchecklists"
+
+update-desktop-database "$HOME/.local/share/applications"
+
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QCheckLists - Check-List Manager
+GenericName=Checklists
+Comment=Manages Checklists for Tasks
+StartupWMClass=QCheckLists
+Version=1.0
+Type=Application
+Exec=1s
+Icon=qchecklists
+Terminal=false
