@@ -28,9 +28,5 @@ class Check(Entity):
 
 class CheckToggled(Event):
     def __init__(self, check: Check):
-        super().__init__("check-toggled")
-        self._check = check
-        
-    def check(self) -> Check:
-        return self._check
+        self.check = check
         

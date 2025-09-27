@@ -57,6 +57,7 @@ class CheckList(Entity):
         self._state = CheckListState.CREATED
         
     def entries(self) -> list:
+        # TODO: Sort by position
         return self._entries.values()
         
     def add(self, title: str) -> CheckListEntry:
@@ -131,22 +132,23 @@ class CheckList(Entity):
         
 class CheckAddedToList(Event):
     def __init__(self, checklist: CheckList, entry: CheckListEntry):
-        super().__init__("check-added-to-list")
-        self._checklist = checklist
-        self._entry = entry
+        self.checklist = checklist
+        self.entry = entry
         
 class CheckRemovedFromList(Event):
     def __init__(self, checklist: CheckList, entry: CheckListEntry):
-        super().__init__("check-removed-from-list")
-        self._checklist = checklist
-        self._entry = entry
+        self.checklist = checklist
+        self.entry = entry
         
 class CheckListStateChange(Event):
     def __init__(self, checklist: CheckList, oldState: CheckListState):
-        super().__init__("checklist-state-changed")
-        self._checklist = checklist
-        self._oldState = oldState
+        self.checklist = checklist
+        self.oldState = oldState
         
 class CheckListsRepository:
+
+    def findAllChecklists() -> list:
+        raise NotImplementedError()
+
     def findDoingCheckList() -> list:
         raise NotImplementedError()

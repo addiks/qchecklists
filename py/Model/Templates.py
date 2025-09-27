@@ -50,7 +50,8 @@ class CheckListTemplate(Entity):
     def createChecklist(self) -> CheckList:
         checklist = CheckList(self._dispatcher, self._title)
         for templateEntry in self._entries.values():
-            checklist.add(templateEntry.title())
+            checklist.ad
+            d(templateEntry.title())
         return checklist
         
     def applyTo(self, target: CheckedTarget):
@@ -58,12 +59,10 @@ class CheckListTemplate(Entity):
         
 class CheckAddedToTemplate(Event):
     def __init__(self, template: CheckListTemplate, entry: CheckListTemplateEntry):
-        super().__init__("check-added-to-template")
         self._template = template
         self._entry = entry
         
 class CheckRemovedFromTemplate(Event):
     def __init__(self, template: CheckListTemplate, entry: CheckListTemplateEntry):
-        super().__init__("check-removed-from-template")
         self._template = template
         self._entry = entry

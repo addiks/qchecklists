@@ -1,6 +1,8 @@
 
 from logging import Logger
 
+from typing import Any, Self, Callable
+
 class Log:
     _logger: Logger = None
     _prefix: str = ""

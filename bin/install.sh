@@ -24,7 +24,10 @@ DB_PATH="$HOME/.local/share/qchecklists.sqlite"
     source "$ENV_BIN/activate"
     
     $PYTHON $PIP install SQLAlchemy yoyo-migrations robotframework pyside6-essentials
-    $PYTHON $BASEDIR/install.py
+    # $PYTHON $BASEDIR/install.py
+    
+    touch $DB_PATH
+    $YOYO apply --batch --database sqlite://$DB_PATH
 )
 
 DESKTOP_DIR="$HOME/.local/share/applications"
